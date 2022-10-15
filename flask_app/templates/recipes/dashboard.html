@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %} 
+<h1 class="mb-5">Todas las recetas</h1>
+<table class="table table-dark table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Under</th>
+            <th scope="col">Posted By</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for recipe in recipes %}
+            <tr>
+                <td>{{ recipe.name }}</td>
+                <td>
+                    {% if recipe.under == 1 %}
+                        YES
+                    {% else %}
+                        NO
+                    {% endif %}
+                </td>
+                <td>{{ recipe.user.first_name }} {{ recipe.user.last_name }}</td>
+                <td>
+                    <a href="{{ url_for( 'viewRecipe', recipe_id = recipe.id ) }}">View</a>
+                    {% if session.user.id == recipe.user_id %}
+                        | <a href="{{ url_for( 'formEditRecipe', recipe_id = recipe.id ) }}">Edit</a>
+                        | <a href="{{ url_for( 'deleteRecipe', recipe_id = recipe.id ) }}">Delete</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <th colspan="4" class="text-center">There are no recipes yet</th>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

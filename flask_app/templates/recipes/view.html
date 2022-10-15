@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %} 
+    <div class="rounded borded">
+        <div class="row justify-content-between align-items-end">
+            <h1 class="w-50 my-5">{{ recipe.name | title }}</h1>
+            <h4 class="w-50 my-5">Posted By: {{ recipe.user.first_name | title }} {{ recipe.user.last_name | title }}</h4>
+        </div>
+        
+        {% set under = 'No' %}
+        {% if recipe.under == 1 %}
+            {% set under = 'Sí' %}
+        {% endif %}
+
+        <div class="row mb-3">
+            <div class="col-4">Description</div>
+            <div class="col-8">: {{ recipe.description }}</div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">Under 30 minutes?</div>
+            <div class="col-8">: {{ under }}</div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-4">Instructions</div>
+            <div class="col-8">: {{ recipe.instructions }}</div>
+        </div>
+
+        <div class="row">
+            <div class="col-4">date made</div>
+            <div class="col-8">: {{ recipe.date_made }}</div>
+        </div>
+        
+    </div>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %} 
+    <div class="rounded borded">
+        {% set checked = '' %}
+
+        {% if recipe.id is defined %}
+            <h1 class="my-5">Edit recipe: {{ recipe.name }}</h1>
+
+            {% if recipe.under == 1 %}
+                {% set checked = 'checked' %}
+            {% endif %}
+
+        {% else %}
+            <h1 class="my-5">Add a new recipe !</h1>
+        {% endif %}
+
+        <form class="border rounded px-3 py-5 w-80" action="{{ action }}" method="POST">
+
+            {% if recipe.id is defined %}
+                <input type="hidden" name="recipe_id" value="{{ recipe.id }}">
+            {% endif %}
+
+            <div class="row justify-content-between">
+                <div class="col-5">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" name="name" class="form-control" id="name" aria-describedby="nameHelp" required value="{{ recipe.name }}">
+                        <div id="nameHelp" class="form-text">Put the name of your recipe.</div>
+                    </div>
+            
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" name="description" class="form-control" id="description" aria-describedby="descriptionHelp" required value="{{ recipe.description }}">
+                        <div id="descriptionHelp" class="form-text">Put a short description of your recipe.</div>
+                    </div>
+            
+                    <div class="mb-3">
+                        <label for="instructions" class="form-label">Instrucctions</label>
+                        <textarea name="instructions" class="form-control" id="instructions" aria-describedby="instructionsHelp" required>{{ recipe.instructions }}</textarea>
+                        <div id="instructionsHelp" class="form-text">Put the instructions of your recipe.</div>
+                    </div>
+                </div>
+
+                <div class="col-5">
+                    <div class="mb-3">
+                        <input name="under" class="form-check-input" type="checkbox" value=1 id="flexCheckDefault" aria-describedby="underHelp" {{ checked }}>
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Under 30 minutes?
+                        </label>
+                        <div id="underHelp" class="form-text">Tell us if your recipe can be prepared in less than 30 minutes the instructions of your recipe.</div>
+                    </div>
+        
+                    <div class="mb-3">
+                        <label for="date_made" class="form-label">Date coocked/made</label>
+                        <input type="date" name="date_made" class="form-control" id="date_made" aria-describedby="date_madeHelp" required value="{{ recipe.date_made }}">
+                        <div id="date_madeHelp" class="form-text">Put the date of elaboration.</div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <button type="submit" class="btn btn-success mt-5">Submit</button>
+        </form>
+    </div>
+{% endblock %}
